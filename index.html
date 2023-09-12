@@ -264,7 +264,7 @@ window.requestAnimationFrame(onAnimationFrame);
 
 
 function processForceFeedback() {
-  if (padState === null)
+  if (padState === null || targetDeg !== null)
     return;
   let now = new Date();
   let t = now.valueOf();
@@ -288,12 +288,13 @@ function processForceFeedback() {
 }
 setInterval(processForceFeedback, 15);
 
-var targetDeg = 0;
+var targetDeg = null;
 function rotateToDeg(deg) {
     targetDeg = deg;
 }
 
 function moveTowardsTargetDeg() {
+    if (targetDeg === null) return;
     if (targetDeg > currentRange / 2 || targetDeg < - currentRange /2) {
         console.log('Target deg out of range', {targetDeg, currentRange});
         return;
