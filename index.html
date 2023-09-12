@@ -300,18 +300,21 @@ function moveTowardsTargetDeg() {
         return;
     }
     if (Math.abs(padState.wheelRotationDegrees - targetDeg) < 1) {
+        targetDeg = null;
         setForce(0);
         return;
     }
     
-    let amplitude = 0.1 * weakMagnitude;
+    let amplitude = 0.2 * weakMagnitude;
     let dir = 1;
     if (targetDeg < padState.wheelRotationDegrees) {
         // Turn left
+        amplitude = 0.2 * weakMagnitude;
         dir = -1;
     } else {
         // Turn right
         dir = 1;
+        amplitude = 0.225 * strongMagnitude;
     }
     setForce(amplitude * dir);
 }
