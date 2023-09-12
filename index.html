@@ -305,10 +305,12 @@ function moveTowardsTargetDeg() {
     
     let amplitude = 0.1 * weakMagnitude;
     let dir = 1;
-    if (targetDeg < deg) {
-        dir = 1;
-    } else {
+    if (targetDeg < padState.wheelRotationDegrees) {
+        // Turn left
         dir = -1;
+    } else {
+        // Turn right
+        dir = 1;
     }
     setForce(amplitude * dir);
 }
