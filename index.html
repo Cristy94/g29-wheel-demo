@@ -288,6 +288,31 @@ function processForceFeedback() {
 }
 setInterval(processForceFeedback, 15);
 
+var targetDeg = 0;
+function rotateToDeg(deg) {
+    targetDeg = deg;
+}
+
+function moveTowardsTargetDeg() {
+    if (targetDeg > currentRange / 2 || targetDeg < - currentRange /2) {
+        console.log('Target deg out of range', {targetDeg, currentRange});
+        return;
+    }
+    if (Math.abs(padState.wheelRotationDegrees - targetDeg) < 1) {
+        setForce(0);
+        return;
+    }
+    
+    let amplitude = 0.1 * weakMagnitude;
+    let dir = 1;
+    if (targetDeg < deg) {
+        dir = 1;
+    } else {
+        dir = -1;
+    }
+    setForce(amplitude * dir);
+}
+    
 function playEffect(type, params) {
   if (type == 'dual-rumble') {
     effectType = type;
